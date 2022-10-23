@@ -1,60 +1,18 @@
 {
-    "Trento" : {
-        "name" : {
-            "common" : "Trento",
-            "species" : "ocimum basilicum"
+    "sensors": [
+        {
+            "name": "casa",
+            "location": "Vicenza",
+            "latitude": "111",
+            "longitude": "222",
+            "isnew": "True"
         },
-        "stats" : {
-            "lifespan" : "9 to 11 months",
-            "seasonal" : true,
-            "months" : [" june", " july", " august", " semptember"],
-            "temperature" : [18.0, 30.0, 25.0],
-            "humidity" : {
-                "terrain" : [30, 42, 40],
-                "air" : [25, 55, 40]
-            },
-            "light" : {
-                "time" : [7, 12]
-            }
-        },
-        "watering" : {
-            "month" : [
-                {
-                   "lable" : "hot periods",
-                   "times" : ["2 times", "day"]
-                },
-                {
-                    "lable" : "the rest of the year",
-                    "times" : ["1 time", "day"] 
-                }
-            ]
+        {
+            "name": "montagna",
+            "location": "Trento",
+            "latitude": "111",
+            "longitude": "222",
+            "isnew": "True"
         }
-    },
-    "Madrid" : {
-        "name" : {
-            "common" : "Madrid",
-            "species" : "salvia officinalis"
-        },
-        "stats" : {
-            "lifespan" : "4-5 years",
-            "seasonal" : false,
-            "months" : [],
-            "temperature" : [12.0, 20.0, 17.5],
-            "humidity" : {
-                "terrain" : [20, 30, 24.5],
-                "air" : [20, 25, 22.5]
-            },
-            "light" : {
-                "time" : [12, 14]
-            }
-        },
-        "watering" : {
-            "month" : [
-                {
-                   "lable" : "the entire year",
-                   "times" : ["1 time", "time the terrain is dry"]
-                }
-            ]
-        }
-    }
+    ]
 }

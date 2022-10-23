@@ -1,4 +1,5 @@
 #/usr/bin/bash
+sudo python3 start.py
 echo "Welcome to Spectrum Analyzer"
 echo ""
 echo "Now is necessary to acquire some data about your system"

@@ -2,12 +2,20 @@
 import socket
 import tqdm
 import os
+import json
 # device's IP address
 SERVER_HOST = "192.168.0.34"
 SERVER_PORT = 9000
 # receive 4096 bytes each time
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
+
+def write_json(new_sensor, filename='/home/ale/spectrum-analyzer/src/data/data.json'):
+    with open(filename, 'r+') as f:
+        data = json.load(f)
+        data['sensors'].append(new_sensor)
+        f.seek(0)
+        json.dump(data, f, indent=4)
 
 # create the server socket
 # TCP socket
@@ -27,7 +35,7 @@ while True:
     # receive the file infos
     # receive using client socket, not server socket
     received = client_socket.recv(BUFFER_SIZE).decode()
-    filename, filesize = received.split(SEPARATOR)
+    filename, filesize, sensor_name, location, latitude, longitude, isnew = received.split(SEPARATOR)
     # remove absolute path if there is
     filename = os.path.basename(filename)
     # convert to integer
@@ -47,8 +55,16 @@ while True:
             f.write(bytes_read)
             # update the progress bar
             #progress.update(len(bytes_read))
-        print(f"[+] {address} File '{filename}' received successfully")    
+        print(f"[+] {address} File '{filename}' received successfully")   
+    if isnew == "True" :
+        new_sensor = {
+            'name': sensor_name,
+            'location': location,
+            'latitude': latitude,
+            'longitude': longitude
+        }
+        write_json(new_sensor)
 # close the client socket
-client_socket.close()
+#client_socket.close()
 # close the server socket
-s.close()
+#s.close()
