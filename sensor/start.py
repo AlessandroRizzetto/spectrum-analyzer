@@ -40,6 +40,25 @@ if __name__ == "__main__":
         print(makeCSV)
         time.sleep(120)
         makePNG = os.popen('./gopow -i /home/pi/rtlizer/rtl-sdr/build/scan.csv /home/pi/scan.csv-go.png').read()
+        print(makePNG)
         time.sleep(20)
         upload = os.popen('python3 upload.py').read()
         print(upload)
+        #ToDo: Add a way to delete the scan.csv and scan.csv-go.png files
+
+        time.sleep(20)
+
+
+        
+    
+
+    
+    
+    
+
+
+
+
+#
+#var = input("Please enter something: ")
+#print("You entered: " + var)
