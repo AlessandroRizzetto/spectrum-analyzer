@@ -8,7 +8,7 @@ const Apply = () => {
         <>
             <Navigation/>
             <Container>
-                Apply
+                Submit
             </Container>
         </>
     );

@@ -1,33 +1,50 @@
 #!/usr/bin/env python
+from http import server
 import socket
 import tqdm
 import os
 import json
-# device's IP address
-SERVER_HOST = "192.168.0.34"
-SERVER_PORT = 9000
-# receive 4096 bytes each time
-BUFFER_SIZE = 4096
-SEPARATOR = "<SEPARATOR>"
+import dbFunction as db
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-def write_json(new_sensor, filename='/home/ale/spectrum-analyzer/src/data/data.json'):
-    with open(filename, 'r+') as f:
-        data = json.load(f)
-        data['sensors'].append(new_sensor)
-        f.seek(0)
-        json.dump(data, f, indent=4)
+class Myserver(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        return
+    def do_POST(self):
+        self.send_response(200)
+        print ("POST request received")
+        return
 
-# create the server socket
-# TCP socket
-s = socket.socket()
-# bind the socket to our local address
-s.bind((SERVER_HOST, SERVER_PORT))
-# enabling our server to accept connections
-# 5 here is the number of unaccepted connections that
-# the system will allow before refusing new connections
-s.listen(5)
-print(f"[*] Listening as {SERVER_HOST}:{SERVER_PORT}")
-while True:
+
+class socketServer:
+    # device's IP address
+    SERVER_HOST = "192.168.0.34"
+    SERVER_PORT = 9000
+    # receive 4096 bytes each time
+    BUFFER_SIZE = 4096
+    SEPARATOR = "<SEPARATOR>"
+
+
+    def write_json(new_sensor, ID, filename='/home/ale/spectrum-analyzer/src/data/data.json'):
+        with open(filename, 'r+') as f:
+            data = json.load(f)
+            data[ID] = new_sensor
+            f.seek(0)
+            json.dump(data, f, indent=4)
+
+
+    # create the server socket
+    # TCP socket
+    s = socket.socket()
+    # bind the socket to our local address
+    s.bind((SERVER_HOST, SERVER_PORT))
+    # enabling our server to accept connections
+    # 5 here is the number of unaccepted connections that
+    # the system will allow before refusing new connections
+    s.listen(5)
+    print(f"[*] Listening as {SERVER_HOST}:{SERVER_PORT}")
+
     # accept connection if there is any
     client_socket, address = s.accept()
     # if below code is executed, that means the sender is connected
@@ -35,7 +52,8 @@ while True:
     # receive the file infos
     # receive using client socket, not server socket
     received = client_socket.recv(BUFFER_SIZE).decode()
-    filename, filesize, sensor_name, location, latitude, longitude, isnew = received.split(SEPARATOR)
+    filename, filesize, sensor_name, location, latitude, longitude, isnew = received.split(
+        SEPARATOR)
     # remove absolute path if there is
     filename = os.path.basename(filename)
     # convert to integer
@@ -47,7 +65,7 @@ while True:
         while True:
             # read 1024 bytes from the socket (receive)
             bytes_read = client_socket.recv(BUFFER_SIZE)
-            if not bytes_read:    
+            if not bytes_read:
                 # nothing is received
                 # file transmitting is done
                 break
@@ -55,16 +73,30 @@ while True:
             f.write(bytes_read)
             # update the progress bar
             #progress.update(len(bytes_read))
-        print(f"[+] {address} File '{filename}' received successfully")   
-    if isnew == "True" :
+        print(f"[+] {address} File '{filename}' received successfully")
+    if isnew == "True":
         new_sensor = {
             'name': sensor_name,
             'location': location,
             'latitude': latitude,
             'longitude': longitude
         }
-        write_json(new_sensor)
-# close the client socket
-#client_socket.close()
-# close the server socket
-#s.close()
+        write_json(new_sensor, sensor_name+location)
+        db.insert_data(sensor_name+location, filename)
+    else:
+        db.update_data(sensor_name+location, filename)
+
+    #close the client socket
+    #client_socket.close()
+    #close the server socket
+    #s.close()
+
+if __name__ == "__main__":
+    server = HTTPServer(('192.168.0.34', 8080), Myserver)
+    print('Starting server, use <Ctrl-C> to stop')
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    while True:
+        socketServer()

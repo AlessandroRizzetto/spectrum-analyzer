@@ -13,15 +13,15 @@ const Navigation = (props) => {
     for(var sensor in data) {
         options.push(
             {
-                value: data[sensor].name.common,
-                label: data[sensor].name.common
+                value: data[sensor].name+data[sensor].location,
+                label: data[sensor].name
             }
         )
     }
 
     //handle change of state selecting a new sensor
     const handleSensorChange = e => {
-        props.setSensor(e.value);
+        props.setSensor(e);
     }
      
 
@@ -50,7 +50,7 @@ const Navigation = (props) => {
                                 <Nav.Link href="#def">The Project</Nav.Link>
                             </Link>
                             <Link to="/apply">
-                                <Nav.Link href="#def">Apply</Nav.Link>
+                                <Nav.Link href="#def">Submit</Nav.Link>
                             </Link>
                         </Nav>
                     </Navbar.Collapse>

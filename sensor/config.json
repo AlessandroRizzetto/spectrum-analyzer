@@ -1,7 +1,7 @@
 {
-    "name": "",
-    "location": "",
-    "latitude": "",
-    "longitude": "",
-    "isnew": ""
+    "name": "Antenna",
+    "location": "Trento",
+    "latitude": "111",
+    "longitude": "222",
+    "isnew": "False"
 }
