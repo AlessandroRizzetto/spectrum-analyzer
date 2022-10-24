@@ -1,6 +1,6 @@
 import os
 import json
-
+import time
 
 def write_json(config, filename='config.json'):
     with open(filename, 'w') as f:
@@ -32,15 +32,14 @@ def load_data():
 
 
 if __name__ == "__main__":
-    load_data()
-    upload = os.popen('python3 upload.py').read()
-    print(upload)
-    
-    
-
-
-
-
-#
-#var = input("Please enter something: ")
-#print("You entered: " + var)
+    while True:
+        load_data()
+        print(text.decode('utf-8'))
+        os.path.dirname(os.path.abspath(__file__))
+        makeCSV = os.popen('rtl_power -f 118M:137M:8k -g 50 -i 10 -e 1h scan.csv').read()
+        print(makeCSV)
+        time.sleep(120)
+        makePNG = os.popen('./gopow -i /home/pi/rtlizer/rtl-sdr/build/scan.csv /home/pi/scan.csv-go.png').read()
+        time.sleep(20)
+        upload = os.popen('python3 upload.py').read()
+        print(upload)
