@@ -3,6 +3,7 @@ import socket
 import tqdm
 import os
 import json
+import dbFunction as db
 # device's IP address
 SERVER_HOST = "192.168.0.34"
 SERVER_PORT = 9000
@@ -10,10 +11,10 @@ SERVER_PORT = 9000
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
 
-def write_json(new_sensor, filename='/home/ale/spectrum-analyzer/src/data/data.json'):
+def write_json(new_sensor, ID, filename='/home/ale/spectrum-analyzer/src/data/data.json'):
     with open(filename, 'r+') as f:
         data = json.load(f)
-        data['sensors'].append(new_sensor)
+        data[ID] = new_sensor
         f.seek(0)
         json.dump(data, f, indent=4)
 
@@ -63,7 +64,11 @@ while True:
             'latitude': latitude,
             'longitude': longitude
         }
-        write_json(new_sensor)
+        write_json(new_sensor, sensor_name+location)
+        db.insert_data(sensor_name+location, filename)
+    else:
+        db.update_data(sensor_name+location, filename)
+    
 # close the client socket
 #client_socket.close()
 # close the server socket
