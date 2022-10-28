@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Alert, Card } from "react-bootstrap";
 import Navigation from "../components/Navigation";
 import data from "../data/data.json"
@@ -6,17 +6,37 @@ import Submit from "./Submit"
 
 
 
-
 const Dashboard = (props) => {
-  
+
   //var spawn = require("child_process").spawn;
   //var process = spawn('python3',["../../server/loadImages.py",props.sensor.value]);
-  fetch('192.168.0.34:8080', {
+
+
+  const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ sensor: props.sensor.value })
-}
-  )
+  };
+  
+
+  useEffect(() => {
+    setInterval(() => {
+      fetch('http://192.168.0.34:8080', requestOptions)
+    }, 100000);
+  }, []);
+    // .then(async response => {
+    //   if (response.status == 200) {
+    //     const data = await response.json();
+    //     console.log("successo!");
+    //   }
+    //   else {
+    //     console.log("errore!");
+    //     return Promise.reject(response);
+    //   }})
+
+
+
+
   // console.log(props.sensor)
   return (
     <div>
@@ -27,7 +47,7 @@ const Dashboard = (props) => {
           <Row>
 
             <p class="text-lg-center">{props.sensor.label}</p>
-            <img src={"/images/"+props.sensor.value+'.png'} alt="waterfall" style={{ width: '1000px', paddingTop: '200px' }} />
+            <img src={"/images/" + props.sensor.value + '.png'} alt="waterfall" style={{ width: '1000px', paddingTop: '200px' }} />
 
           </Row>
 

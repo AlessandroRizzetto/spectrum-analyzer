@@ -1,18 +1,14 @@
-{
-    "sensors": [
-        {
-            "name": "casa",
-            "location": "Vicenza",
-            "latitude": "111",
-            "longitude": "222",
-            "isnew": "True"
-        },
-        {
-            "name": "montagna",
-            "location": "Trento",
-            "latitude": "111",
-            "longitude": "222",
-            "isnew": "True"
-        }
-    ]
-}
+[
+    {
+        "name": "trento",
+        "location": "trento",
+        "latitude": "46.070929",
+        "longitude": "11.117609"
+    },
+    {
+        "name": "Vicenza",
+        "location": "Vicenza",
+        "latitude": "45.548894",
+        "longitude": "11.535121"
+    }
+]

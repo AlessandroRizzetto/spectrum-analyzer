@@ -50,9 +50,9 @@ def update_data(sensorID, image):
  
         result = cursor.execute(update_blob, update_blob_tuple)
         connection.commit()
-        print("Image inserted successfully as a BLOB into spectrumTable", result)
+        print("Image updated successfully as a BLOB into spectrumTable", result)
     except mysql.connector.Error as error:
-        print("Failed inserting BLOB data into MySQL table {}".format(error))
+        print("Failed updating BLOB data into MySQL table {}".format(error))
     finally:
         if (connection.is_connected()):
             cursor.close()
@@ -75,7 +75,7 @@ def read_data(sensorID):
             print("SensorID = ", row[1])
             image = row[2]
             print("Storing image on disk \n")
-            with open(sensorID+'.png', 'wb') as file:
+            with open("/home/ale/spectrum-analyzer/public/images/" + sensorID + ".png", 'wb') as file:
                 file.write(image)
     except mysql.connector.Error as error:
         print("Failed to read BLOB data from MySQL table {}".format(error))

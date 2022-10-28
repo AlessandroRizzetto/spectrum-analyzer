@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import logo from '../media/logo.png'
 import data from '../data/data.json'
 import Select from 'react-select'
+import { useHistory } from "react-router-dom";
 
 const Navigation = (props) => {
 
@@ -19,9 +20,15 @@ const Navigation = (props) => {
         )
     }
 
+    
+    
+
+
+
     //handle change of state selecting a new sensor
-    const handleSensorChange = e => {
+    const HandleSensorChange = e => {
         props.setSensor(e);
+
     }
      
 
@@ -29,7 +36,7 @@ const Navigation = (props) => {
         <div>
             <Navbar bg="transparent" expand="lg">
                 <Container>
-                    <Link to="/">
+                    <Link to="/" style={{textDecoration:'none'}}>
                         <Navbar.Brand href="#home">
                             <img src={logo} alt="logo" style={{width:'100px',paddingTop:'20px'}}/>
                             <span style={{paddingLeft:'20px'}}>Spectrum Analyzer</span>
@@ -38,19 +45,23 @@ const Navigation = (props) => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            <Nav.Link style={{width: '200px', marginTop:'-6px'}}>
+                            <Nav.Link style={{width: '300px', marginTop:'-6px'}}>
                                 <Select
                                     placeholder="Select Option"
                                     value={options.find(obj => obj.value === props.sensor)}
                                     options={options} 
-                                    onChange={handleSensorChange} 
+                                    onChange={HandleSensorChange}   
+                                                                                                  
                                 />
                             </Nav.Link>
-                            <Link to="/project">
-                                <Nav.Link href="#def">The Project</Nav.Link>
+                            <Link to="/dashboard" style={{textDecoration:'none'}}>
+                                <Nav.Link href="#Dashboard" >Sensors</Nav.Link>
                             </Link>
-                            <Link to="/apply">
-                                <Nav.Link href="#def">Submit</Nav.Link>
+                            <Link to="/project" style={{textDecoration:'none'}}>
+                                <Nav.Link href="#Project" >The Project</Nav.Link>
+                            </Link>
+                            <Link to="/apply" style={{textDecoration:'none'}}>
+                                <Nav.Link href="#Submit">Submit</Nav.Link>
                             </Link>
                         </Nav>
                     </Navbar.Collapse>

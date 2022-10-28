@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 import Dashboard from './pages/Dashboard';
-import Apply from './pages/Submit';
 import Project from './pages/Project';
+import Home from './pages/Home';
+import Apply from './pages/Submit';
 import {Route, BrowserRouter as Router} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style/App.scss'
+import './style/App.css'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
 function App() {
@@ -14,7 +16,8 @@ function App() {
   return (
     <div className="app-wrapper">
       <Router>
-        <Route path="/" exact render={() => <Dashboard sensor={sensor} setSensor={setSensor}/>}/>
+        <Route exact path="/" render={() => <Home/>}/>
+        <Route path="/dashboard" exact render={() => <Dashboard sensor={sensor} setSensor={setSensor}/>}/>
         <Route path="/apply" render={() => <Apply/>}/>
         <Route path="/project" render={() => <Project/>}/>
       </Router>

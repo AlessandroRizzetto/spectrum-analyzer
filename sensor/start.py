@@ -32,21 +32,21 @@ def load_data():
 
 
 if __name__ == "__main__":
-    while True:
+    #while True:
         load_data()
-        print(text.decode('utf-8'))
-        os.path.dirname(os.path.abspath(__file__))
-        makeCSV = os.popen('rtl_power -f 118M:137M:8k -g 50 -i 10 -e 1h scan.csv').read()
-        print(makeCSV)
-        time.sleep(120)
-        makePNG = os.popen('./gopow -i /home/pi/rtlizer/rtl-sdr/build/scan.csv /home/pi/scan.csv-go.png').read()
-        print(makePNG)
-        time.sleep(20)
+        #print(text.decode('utf-8'))
+        #os.path.dirname(os.path.abspath(__file__))
+        # makeCSV = os.popen('rtl_power -f 118M:137M:8k -g 50 -i 10 -e 1h scan.csv').read()
+        # print(makeCSV)
+        # time.sleep(120)
+        # makePNG = os.popen('./gopow -i /home/pi/rtlizer/rtl-sdr/build/scan.csv /home/pi/scan.csv-go.png').read()
+        # print(makePNG)
+        # time.sleep(20)
         upload = os.popen('python3 upload.py').read()
         print(upload)
         #ToDo: Add a way to delete the scan.csv and scan.csv-go.png files
 
-        time.sleep(20)
+        #time.sleep(20)
 
 
         

@@ -4,5 +4,17 @@
         "location": "trento",
         "latitude": "111",
         "longitude": "222"
+    },
+    "VicenzaVicenza": {
+        "name": "Vicenza",
+        "location": "Vicenza",
+        "latitude": "111",
+        "longitude": "222"
+    },
+    "trentotrento": {
+        "name": "trento",
+        "location": "trento",
+        "latitude": "111",
+        "longitude": "222"
     }
 }
